@@ -1,0 +1,46 @@
+service: particle-backend
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+provider:
+  name: aws
+  tracing: true
+  profile: private
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-central-1
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - s3:DeleteObject
+        - s3:GetObject
+        - s3:ListBucket
+        - s3:PutObject
+        - s3:GetBucketPolicy
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "*"
+
+
+functions:
+  hello:
+    handler: handler.webook
+    memorySize: 128
+    description: Handling Webhooks from Particle.io to store  in DynamoDB
+    events:
+      - http:
+          path: particle-webhook
+          method: post
+          cors: true
+      
