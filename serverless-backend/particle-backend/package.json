@@ -1,22 +1,26 @@
 {
-    "name": "serverless-smart-home-particle-backend",
-    "version": "0.0.1",
-    "description": "",
-    "main": "handler.js",
-    "keywords": [],
-    "author": "Jan Sulaiman",
-    "dependencies": {
-        "aws-xray-sdk": "^2.5.0",
-        "uuid": "^7.0.0"
-    },
-    "devDependencies": {
-        "aws-sdk": "^2.610.0",
-        "aws-sdk-mock": "^5.0.0",
-        "mime-types": "^2.1.26",
-        "serverless-aws-documentation": "^1.1.0",
-        "serverless-plugin-tracing": "^2.0.0",
-        "serverless-prune-plugin": "^1.4.2",
-        "serverless-pseudo-parameters": "^2.5.0",
-        "serverless-scriptable-plugin": "^1.0.5"
-    }
+  "name": "particle_backend",
+  "version": "0.0.1",
+  "main": "handler.js",
+  "keywords": [],
+  "author": "Jan Sulaiman",
+  "license": "ISC",
+  "dependencies": {
+    "aws-xray-sdk": "^2.5.0",
+    "uuid": "^7.0.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.610.0",
+    "aws-sdk-mock": "^5.0.0",
+    "mime-types": "^2.1.26",
+    "serverless-aws-documentation": "^1.1.0",
+    "serverless-plugin-tracing": "^2.0.0",
+    "serverless-prune-plugin": "^1.4.2",
+    "serverless-pseudo-parameters": "^2.5.0",
+    "serverless-scriptable-plugin": "^1.0.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "description": ""
 }
