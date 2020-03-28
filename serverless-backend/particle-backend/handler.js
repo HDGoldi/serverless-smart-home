@@ -1,6 +1,6 @@
 'use strict';
 
-const uuid = require('uuid');
+const uuid = require('uuid').v4;
 const AWS = require('aws-sdk'); 
 
 AWS.config.setPromisesDependency(require('bluebird'));

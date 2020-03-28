@@ -34,7 +34,7 @@ provider:
 
 
 functions:
-  hello:
+  store-event:
     handler: handler.webook
     memorySize: 128
     description: Handling Webhooks from Particle.io to store  in DynamoDB
