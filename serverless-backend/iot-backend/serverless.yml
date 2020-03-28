@@ -3,6 +3,7 @@ service: backend
 frameworkVersion: ">=1.1.0 <2.0.0"
 provider:
   name: aws
+  profile: private
   runtime: nodejs12.x
   stage: dev
   region: eu-central-1
