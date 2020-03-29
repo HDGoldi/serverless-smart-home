@@ -63,20 +63,3 @@ module.exports.events = async event => {
     return processResponse(IS_CORS, errorResponse, 500);
   }
 };
-
-
-function Rollade1ScanInput() {
-  return {
-    "TableName": "particle-backend-events-dev",
-    "ConsistentRead": false,
-    "FilterExpression": "#50060 = :50060",
-    "ExpressionAttributeValues": {
-      ":50060": {
-        "S": "Rollade_1"
-      }
-    },
-    "ExpressionAttributeNames": {
-      "#50060": "event"
-    }
-  }
-}
