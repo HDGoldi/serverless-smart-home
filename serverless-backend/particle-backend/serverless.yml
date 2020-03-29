@@ -10,6 +10,9 @@ provider:
   region: eu-central-1
   environment:
     EVENT_TABLE: "${self:service}-events-${opt:stage, self:provider.stage}"
+    PRIMARY_KEY: "id"
+  apiKeys:
+    - name: particle1
   iamRoleStatements:
     - Effect: 'Allow'
       Action:
@@ -35,7 +38,7 @@ provider:
 
 functions:
   StoreEvent:
-    handler: handler.webook
+    handler: handler.upload
     memorySize: 128
     description: Handling Webhooks from Particle.io to store  in DynamoDB
     events:
@@ -43,6 +46,7 @@ functions:
           path: particle-webhook
           method: post
           cors: true
+          private: true
 
 resources:
   Resources:

@@ -1,61 +1,34 @@
-'use strict';
 
-const uuid = require("uuid/v4");
-const AWS = require('aws-sdk'); 
-
-AWS.config.setPromisesDependency(require('bluebird'));
-
+const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const uuidv4 = require('uuid/v4');
+const processResponse = require('./process-response.js');
+const TABLE_NAME = process.env.EVENT_TABLE,
+  PRIMARY_KEY = process.env.PRIMARY_KEY,
+  IS_CORS = true;
 
-module.exports.webook = (event, context, callback) => {
-  const requestBody = JSON.parse(event.body);
-  const name = requestBody.name;
-  const data = requestBody.data;
-
-  if (typeof name !== 'string' || typeof data !== 'string') {
-    console.error('Validation Failed');
-    callback(new Error('Couldn\'t submit candidate because of validation errors.'));
-    return;
+module.exports.upload = async event => {
+  if (event.httpMethod === 'OPTIONS') {
+    return processResponse(IS_CORS);
   }
-
-  submitEvent(events(name, data))
-    .then(res => {
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({
-          message: `Sucessfully stored event`,
-          candidateId: res.id
-        })
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      callback(null, {
-        statusCode: 500,
-        body: JSON.stringify({
-          message: `Unable to store event`
-        })
-      })
-    });
-
-};
-
-const submitEvent = event => {
-  console.log('Submitting event');
-  const events = {
-    TableName: process.env.EVENT_TABLE,
-    Item: event,
-  };
-  return dynamoDb.put(events).promise()
-    .then(res => event);
-};
-
-const events = (name, data) => {
-  const timestamp = new Date().getTime();
-  return {
-    id: uuid.v1(),
-    name: name,
-    data: data,
-    receivedAt: timestamp,
-  };
+  if (!event.body) {
+    return processResponse(IS_CORS, 'invalid', 400);
+  }
+  const item = JSON.parse(event.body);
+  item[PRIMARY_KEY] = uuidv4();
+  const params = {
+    TableName: TABLE_NAME,
+    Item: item
+  }
+  try {
+    await dynamoDb.put(params).promise()
+    return processResponse(IS_CORS);
+  } catch (error) {
+    let errorResponse = `Error: Execution update, caused a Dynamodb error, please look at your logs.`;
+    if (error.code === 'ValidationException') {
+      if (error.message.includes('reserved keyword')) errorResponse = `Error: You're using AWS reserved keywords as attributes`;
+    }
+    console.log(error);
+    return processResponse(IS_CORS, errorResponse, 500);
+  }
 };
