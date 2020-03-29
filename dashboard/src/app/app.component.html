@@ -1,0 +1,19 @@
+<nb-layout withScroll [class.header-hidden]="!(layout$ | async)?.header">
+
+  <nb-layout-header *ngIf="(layout$ | async)?.header" class="slot header" >
+    <div class="space space-component">
+      <h1 class="heading text-basic">IoT Dashboard - Rolladen</h1>
+    </div>
+  </nb-layout-header>
+
+  <nb-sidebar *ngIf="(layout$ | async)?.sidebar" class="slot sidebar" responsive [collapsedBreakpoints]="['xs', 'is', 'sm']" [compactedBreakpoints]="[]">
+    <div class="space space-component1">
+      <nb-menu class="menu" [items]="items"></nb-menu>
+    </div>
+  </nb-sidebar>
+
+  <nb-layout-column [style.padding]="padding$ | async">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+</nb-layout>

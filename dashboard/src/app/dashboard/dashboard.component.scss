@@ -1,0 +1,64 @@
+:host > .slot {
+  height: 100%;
+  
+  .space-component {
+    height: auto;
+    min-height: 2rem;
+    width: 100%;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: flex-start;
+    overflow: visible;
+    background-color: unset;
+  }
+    
+  .heading {
+    margin: 0 0 16px 0;
+  }
+    
+  .space-component1 {
+    height: auto;
+    min-height: 2rem;
+    width: 100%;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: flex-start;
+    overflow: visible;
+    background-color: unset;
+  }
+    
+  .smart-table {
+    width: 100%;
+    height: auto;
+  }
+    
+  .space-component2 {
+    height: 100%;
+    flex-grow: 1;
+    flex-basis: 0;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: flex-start;
+    overflow: visible;
+    background-color: unset;
+  }
+    
+  @media (max-width: 768px) {
+    .space-component2 {
+      flex-direction: column;
+    }
+  }
+    
+  @media (max-width: 480px) {
+    .space-component2 {
+      flex-direction: column;
+    }
+  }
+    
+  @media (max-width: 320px) {
+    .space-component2 {
+      flex-direction: column;
+    }
+  }
+  
+}
