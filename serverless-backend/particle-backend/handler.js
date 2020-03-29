@@ -40,14 +40,15 @@ module.exports.events = async event => {
   if (event.httpMethod === 'OPTIONS') {
     return processResponse(IS_CORS);
   }
+  const event_name = event.pathParameters.event_name;
   let params = {
     TableName: TABLE_NAME,
-    FilterExpression: "#ev = :Roll",
+    FilterExpression: "#01 = :02",
     ExpressionAttributeNames: {
-      "#ev": "event"
+      "#01": "event"
     },
     ExpressionAttributeValues: {
-      ":Roll": "Rollade_1"
+      ":02": event_name
     }
   }
   try {

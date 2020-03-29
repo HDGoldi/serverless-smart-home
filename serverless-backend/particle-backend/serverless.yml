@@ -53,7 +53,7 @@ functions:
     description: Getting events from Particle.io from DynamoDB
     events:
       - http:
-          path: events
+          path: events/{event_name}
           method: get
           cors: true
           private: true
