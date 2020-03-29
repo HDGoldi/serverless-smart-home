@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to the #{title}
+table(border='1')
+    thead
+        tr
+            th #
+            th Code
+            th Name
+            th Description
+    tbody
+        each item, i in items
+            tr
+                td= i+1
+                td= item.code
+                td= item.name
+                td= item.description
