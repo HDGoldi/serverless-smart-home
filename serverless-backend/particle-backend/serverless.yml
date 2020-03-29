@@ -47,6 +47,16 @@ functions:
           method: post
           cors: true
           private: true
+  GetEvents:
+    handler: handler.events
+    memorySize: 128
+    description: Getting events from Particle.io from DynamoDB
+    events:
+      - http:
+          path: events
+          method: get
+          cors: true
+          private: true
 
 resources:
   Resources:
